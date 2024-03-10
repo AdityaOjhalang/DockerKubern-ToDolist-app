@@ -1,0 +1,3 @@
+echo "docker tag flask-app adityaojhalang/flask-app:latest" >> commands.txt
+echo "docker login" >> commands.txt
+echo "docker push adityaojhalang/flask-app:latest" >> commands.txt
