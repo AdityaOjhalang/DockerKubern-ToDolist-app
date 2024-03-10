@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongodb
+    environment:
+      - FLASK_ENV=development
+      - MONGO_HOST=mongodb
+
+  mongodb:
+    image: mongo:latest
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:
