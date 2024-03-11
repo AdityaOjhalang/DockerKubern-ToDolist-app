@@ -13,25 +13,12 @@ spec:
         app: flask-app
     spec:
       containers:
-      - name: flask-app
-        image: adityaojhalang/flask-app:latest # Replace with your Docker Hub image
-        ports:
-        - containerPort: 3000
-        env:
-        - name: FLASK_ENV
-          value: "development"
-        - name: MONGO_HOST
-          value: "mongodb"
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: flask-app-service
-spec:
-  type: LoadBalancer
-  ports:
-  - port: 3000
-    targetPort: 3000
-    protocol: TCP
-  selector:
-    app: flask-app
+        - name: flask-app
+          image: adityaojhalang/flask-app:latest # Replace with your Docker Hub image
+          ports:
+            - containerPort: 3000
+          env:
+            - name: FLASK_ENV
+              value: "development"
+            - name: MONGO_HOST
+              value: "mongodb"
