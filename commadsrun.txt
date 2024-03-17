@@ -1,3 +1,21 @@
 echo "docker tag flask-app adityaojhalang/flask-app:latest" >> commands.txt
 echo "docker login" >> commands.txt
 echo "docker push adityaojhalang/flask-app:latest" >> commands.txt
+
+
+aws eks create-nodegroup \
+    --cluster-name TodoList \
+    --nodegroup-name TodoList-nodegroup \
+    --disk-size 10 \
+    --scaling-config minSize=2,maxSize=3,desiredSize=2 \
+    --subnets subnet-0fe168700a9764fa7 subnet-04ccc98b25058317a subnet-0d9022c12f8215860 \
+    --instance-types t2.small \
+    --ami-type AL2_x86_64 \
+    --node-role arn:aws:iam::471112913653:role/AmazonEKSNodeRoleCC \
+    --region us-east-2
+
+
+#Cluster and node creation and updation on dockerhub.
+[5:39 pm, 17/03/2024] Aditya Ojha: eksctl create cluster --name TodoListCluster --node-type=t2.large --nodes=4 --region=us-east-2
+[6:01 pm, 17/03/2024] Aditya Ojha: docker buildx build --platform linux/amd64 -t yourdockerhubusername/flask-app:latest --push .
+[6:02 pm, 17/03/2024] Aditya Ojha: kubectl set image deployment/flask-app flask-app=yourdockerhubusername/flask-app:latest

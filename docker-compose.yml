@@ -10,7 +10,6 @@ services:
     environment:
       - FLASK_ENV=development
       - MONGO_HOST=mongodb
-
   mongodb:
     image: mongo:latest
     volumes:
