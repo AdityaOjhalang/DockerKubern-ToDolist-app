@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: flask-app
-          image: adityaojhalang/flask-app:latest # Replace with your Docker Hub image
+          image: adityaojhalang/flask-app:v2 # Replace with your Docker Hub image
           imagePullPolicy: Always
           ports:
             - containerPort: 3000
@@ -23,3 +23,8 @@ spec:
               value: "development"
             - name: MONGO_HOST
               value: "mongodb"
+  strategy: # 'strategy' should be at the same level as 'selector' and 'template'
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
