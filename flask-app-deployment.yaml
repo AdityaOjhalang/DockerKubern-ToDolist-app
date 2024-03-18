@@ -17,13 +17,27 @@ spec:
           image: adityaojhalang/flask-app:v2 # Replace with your Docker Hub image
           imagePullPolicy: Always
           ports:
-            - containerPort: 3000
+            - containerPort: 3000 # Ensure this matches the port used in probes
           env:
             - name: FLASK_ENV
               value: "development"
             - name: MONGO_HOST
               value: "mongodb"
-  strategy: # 'strategy' should be at the same level as 'selector' and 'template'
+          livenessProbe:
+            tcpSocket:
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            failureThreshold: 1
+            
+  strategy: # Define the update strategy
     type: RollingUpdate
     rollingUpdate:
       maxSurge: 1
